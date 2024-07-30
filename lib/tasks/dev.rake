@@ -2,10 +2,8 @@ desc "Fill the database tables with some sample data"
 task({ :sample_data => :environment}) do
   starting = Time.now
 
-  if Rails.env.production?
-    ActiveRecord::Base.connection.tables.each do |t|
-      ActiveRecord::Base.connection.reset_pk_sequence!(t)
-    end
+  ActiveRecord::Base.connection.tables.each do |t|
+    ActiveRecord::Base.connection.reset_pk_sequence!(t)
   end
 
   User.delete_all
@@ -4228,4 +4226,3 @@ task({ :sample_data => :environment}) do
   puts "#{elapsed.to_i} seconds elapsed."
   puts "Generated Sample Data"
 end
-
