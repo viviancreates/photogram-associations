@@ -63,32 +63,32 @@ class Photo < ApplicationRecord
    ## Indirect associations
 
   # Photo#fans: returns rows from the users table associated to this photo through its likes
-  #has_many(:fans, through: :users, source: :like)
-  def fans
-    my_likes = self.likes
+  has_many(:fans, through: :likes, source: :fan)
+  # def fans
+  #   my_likes = self.likes
     
-    array_of_user_ids = Array.new
+  #   array_of_user_ids = Array.new
 
-    my_likes.each do |a_like|
-      array_of_user_ids.push(a_like.fan_id)
-    end
+  #   my_likes.each do |a_like|
+  #     array_of_user_ids.push(a_like.fan_id)
+  #   end
 
-    matching_users = User.where({ :id => array_of_user_ids })
+  #   matching_users = User.where({ :id => array_of_user_ids })
 
-    return matching_users
-  end
+  #   return matching_users
+  # end
 
-  def fan_list
-    my_fans = self.fans
+  # def fan_list
+  #   my_fans = self.fans
 
-    array_of_usernames = Array.new
+  #   array_of_usernames = Array.new
 
-    my_fans.each do |a_user|
-      array_of_usernames.push(a_user.username)
-    end
+  #   my_fans.each do |a_user|
+  #     array_of_usernames.push(a_user.username)
+  #   end
 
-    formatted_usernames = array_of_usernames.to_sentence
+  #   formatted_usernames = array_of_usernames.to_sentence
 
-    return formatted_usernames
-  end
+  #   return formatted_usernames
+  # end
 end
