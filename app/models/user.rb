@@ -55,14 +55,17 @@ class User < ApplicationRecord
   # User#feed: returns rows from the photos table associated to this user through its leaders (the leaders' own_photos)
 
   # User#discover: returns rows from the photos table associated to this user through its leaders (the leaders' liked_photos)
+  has_many(:comments,
+  class_name: "Comment",
+  foreign_key: "author_id"
+)
+  #def comments
+    #my_id = self.id
 
-  def comments
-    my_id = self.id
+    #matching_comments = Comment.where({ :author_id => my_id })
 
-    matching_comments = Comment.where({ :author_id => my_id })
-
-    return matching_comments
-  end
+    #return matching_comments
+  #end
 
   def own_photos
     my_id = self.id
