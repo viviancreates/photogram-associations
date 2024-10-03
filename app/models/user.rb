@@ -67,36 +67,46 @@ class User < ApplicationRecord
     #return matching_comments
   #end
 
-  def own_photos
-    my_id = self.id
+  has_many(:own_photos,
+  class_name: "Photo",
+  foreign_key: "owner_id"
+)
+  #def own_photos
+    #my_id = self.id
 
-    matching_photos = Photo.where({ :owner_id => my_id })
+    #matching_photos = Photo.where({ :owner_id => my_id })
 
-    return matching_photos
-  end
+    #return matching_photos
+  #end
 
-  def likes
-    my_id = self.id
+  has_many(:likes,
+  class_name: "Like",
+  foreign_key: "fan_id"
+)
+  #def likes
+   #my_id = self.id
 
-    matching_likes = Like.where({ :fan_id => my_id })
+    #matching_likes = Like.where({ :fan_id => my_id })
 
-    return matching_likes
-  end
+    #return matching_likes
+  #end
 
-  def liked_photos
-    my_likes = self.likes
+  has_many(:liked_photos, through: :likes, source: :photo)
+  #def liked_photos
+    #my_likes = self.likes
     
-    array_of_photo_ids = Array.new
+    #array_of_photo_ids = Array.new
 
-    my_likes.each do |a_like|
-      array_of_photo_ids.push(a_like.photo_id)
-    end
+    #my_likes.each do |a_like|
+      #array_of_photo_ids.push(a_like.photo_id)
+    #end
 
-    matching_photos = Photo.where({ :id => array_of_photo_ids })
+    #matching_photos = Photo.where({ :id => array_of_photo_ids })
 
-    return matching_photos
-  end
+    #return matching_photos
+  #end
 
+  
   def commented_photos
     my_comments = self.comments
     
